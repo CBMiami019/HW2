@@ -2,7 +2,7 @@
 #include "cinder/gl/gl.h"
 #include "cinder/app/AppBasic.h"
 #include "MyRectangle.h"
-#include "cinder/Rand.h";
+#include "cinder/Rand.h"
 
 
 using namespace ci;
@@ -26,7 +26,7 @@ void insertAfter( MyRectangle* new_rect, MyRectangle* insert_here) {
 		insert_here->next_ = new_rect;
 }
 
-void Square::update(vec2f parent_position, float parent_r) {
+void MyRectangle::update(Vec2f parent_position, float parent_r) {
 	Vec2f new_offset = offset_ + velocity_;
 
 	float cur_distance = parent_position.distance(parent_position + offset_);
@@ -38,9 +38,9 @@ void Square::update(vec2f parent_position, float parent_r) {
 	offset_ = new_offset;
 	position_ = parent_position + offset_;
 
-	/*//TODO Add a bounds check here, so stuff doesn't drift away
+	
 	velocity_ = 0.95*velocity_ +0.05*randVec2f();
-	velocity_.safeNormalize();*/
+	velocity_.safeNormalize();
 
 	MyRectangle* cur = children_;
 	if(cur != NULL){
@@ -51,8 +51,28 @@ void Square::update(vec2f parent_position, float parent_r) {
 	}
 }
 
-void Square::draw(Vec2i mp) {
-	gl::color(Color8u(255, 0, 255) );
+void MyRectangle::addRandomChild(int depth){
+	MyRectangle* new_item = new MyRectangle(depth,position_,Vec2f(0.0,0.0),0.45*radius_);
+
+	if(children_ != NULL){
+		insertAfter(new_item, children_);
+	} else {
+		children_ = new_item;
+	}
+}
+
+void MyRectangle::draw(Vec2i mp) {
+
+	/*bool is_inside = isInside(mp.x, mp.y);
+
+	if(is_inside){
+		gl::color(Color8u(255,127,00));
+	} else {
+		gl::color(Color8u(255,0,0));
+	}*/
+
+
+	gl::color(Color8u(255, 255, 0 ) );
 	gl::drawSolidRect( Rectf( position_.x-radius_,position_.y-radius_,
 		position_.x+radius_,position_.y+radius_));
 
@@ -61,23 +81,9 @@ void Square::draw(Vec2i mp) {
 		do {
 			cur->draw(mp);
 			cur = cur->next_;
-		}while( cur->next_ != chilren_ );
+		}while( cur->next_ != children_ );
 	}
 }
 
-class MyRectangle
-{
-public:
-	MyRectangle(float x1, float y1, float x2, float y2, Color8u color);
-	void update();
-	void draw();
-	bool isInside(Vec2i mouse_pos);
 
-	MyRectangle(void);
-	~MyRectangle(void);
-
-private:
-	float x1_, y1_, x2_, y2_;
-	Color8u color_;
-};
 

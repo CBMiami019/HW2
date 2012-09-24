@@ -2,7 +2,9 @@
 #include "cinder/gl/gl.h"
 #include "MyRectangle.h"
 #include "cinder/gl/Texture.h"
-#include "cinder\ImageIo.h"
+#include "cinder/ImageIo.h"
+#include "Resources.h"
+
 
 using namespace ci;
 using namespace ci::app;
@@ -14,16 +16,22 @@ class HW2App : public AppBasic {
 	void prepareSettings(Settings* settings);
 	void drawNode();
 	void setup();
-	void mouseDown( MouseEvent event );	
+	void mouseDown( MouseEvent event );
+	void mouseUp( MouseEvent event );
+	void mouseMove( MouseEvent event );
+	void mouseDrag( MouseEvent event );
+	void keyDown( KeyEvent event );
 	void update();
 	void draw();
 	
-	Vec2i mouseLoc;
-	Vec2f mouseVel;
+	Vec2i mMouseLoc;
+	Vec2f mMouseVel;
 	bool mouseClicked;
 	bool drawImage;
 	
 private:
+
+	MyRectangle* mRect_;
 
 	Surface* mySurface_;
 	gl::Texture *myTexture;
@@ -48,6 +56,7 @@ void HW2App::prepareSettings(Settings* settings)
 	settings->setFrameRate(60.0f);
 }
 
+/*
 void HW2App::drawNode() {
 	cur = sentinel->getNext();
 	do {
@@ -55,33 +64,59 @@ void HW2App::drawNode() {
 		cur = cur->getNext();
 	} while(cur != sentinel);
 
-}
+} */
+
 
 void HW2App::setup()
 {
 	Vec2f trans = (appWidth/2.0f)*kUnitX + (appHeight/2.0f)*kUnitY;
 	mRect_ = new MyRectangle(4, trans, Vec2f(0,0), 20.0f);
 
-	frame_number_ = 0;
+	frame_num = 0;
 
 	mMouseLoc = Vec2i( 0, 0 );
 	mMouseVel = Vec2f::zero();
-	mIsPressed = false;
-	mDrawImage = false;
+	mouseClicked = false;
+	drawImage = false;
 }
 
 void HW2App::mouseDown( MouseEvent event )
 {
+	mouseClicked = true;
 }
+
+void HW2App::mouseUp( MouseEvent event )
+{
+	mouseClicked = false;
+}
+
+void HW2App::mouseMove( MouseEvent event )
+{
+	mMouseVel = ( event.getPos() - mMouseLoc );
+	mMouseLoc = event.getPos();
+}
+
+void HW2App::mouseDrag( MouseEvent event )
+{
+	mouseMove( event );
+}
+
+void HW2App::keyDown( KeyEvent event )
+{
+	if( event.getChar() == '?' ){
+		drawImage = ! drawImage;
+	}
+}
+
 
 void HW2App::update()
 {
 	MyRectangle* cur = mRect_; 
-	Vec2f center = kUnitX*width/2.0 + kUnitY*height/2.0;
+	Vec2f center = kUnitX*appWidth/2.0 + kUnitY*appHeight/2.0;
 
 	if( cur != NULL ) {
 		do{
-		cur->update(center, width/2.0);
+		cur->update(center, appWidth/2.0);
 		cur = cur->next_;
 		}while( cur!= mRect_ );
 	}
@@ -91,12 +126,12 @@ void HW2App::update()
 void HW2App::draw()
 {
 	// clear out the window with black
-	gl::clear( Color( 0, 0, 0 ) ); 
+	gl::clear( Color( 0, 0, 0 ), true ); 
 
 	MyRectangle* cur = mRect_;
 	if( cur != NULL ) {
 		do {
-			cur->draw(getMousePos);
+			cur->draw(getMousePos());
 			cur = cur->next_;
 		}while( cur != mRect_ );
 	}
