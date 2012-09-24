@@ -19,9 +19,10 @@ class HW2App : public AppBasic {
 	void prepareSettings(Settings* settings);
 
 	Surface* mySurface_;
+	gl::Texture myTexture;
 	static const int appWidth = 800; 
 	static const int appHeight = 600;
-	ShapeNode *sentinel;
+	ShapeNode* sentinel;
 
 };
 
@@ -33,7 +34,7 @@ void HW2App::prepareSettings(Settings* settings)
 }
 
 void HW2App::drawNode() {
-	ShapeNode *cur = sentinel->getNext();
+	cur = sentinel->getNext();
 	do {
 		cur->getData()->draw();
 		cur = cur->getNext();
@@ -44,6 +45,7 @@ void HW2App::drawNode() {
 void HW2App::setup()
 {
 	*mySurface_ = new Surface(appWidth, appHeight);
+	sentinel = new ShapeNode();
 }
 
 void HW2App::mouseDown( MouseEvent event )
@@ -58,7 +60,7 @@ void HW2App::draw()
 {
 	// clear out the window with black
 	gl::clear( Color( 0, 0, 0 ) ); 
-	gl::draw(*mySurface_);
+	gl::draw( myTexture, getWindowBounds() );
 
 	ShapeNode* cur = cur->next_;
 }

@@ -1,5 +1,6 @@
 #pragma once
 #define NULL 0
+#include "ShapeNode.h"
 
 class ShapeNode
 {
