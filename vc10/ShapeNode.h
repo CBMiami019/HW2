@@ -15,7 +15,7 @@ public:
 	ShapeNode* getNext();
 	void update();
 	void draw();
-	ShapeNode(void);
+
 	~ShapeNode(void);
 
 private:

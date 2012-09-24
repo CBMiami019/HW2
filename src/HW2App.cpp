@@ -8,21 +8,26 @@
 using namespace ci;
 using namespace ci::app;
 using namespace std;
+using namespace ci::gl;
 
 class HW2App : public AppBasic {
   public:
+
+	void prepareSettings(Settings* settings);
+	void drawNode();
 	void setup();
 	void mouseDown( MouseEvent event );	
 	void update();
 	void draw();
-	void drawNode();
-	void prepareSettings(Settings* settings);
+	
+	
 
 	Surface* mySurface_;
-	gl::Texture myTexture;
+	gl::Texture *myTexture;
 	static const int appWidth = 800; 
 	static const int appHeight = 600;
 	ShapeNode* sentinel;
+	ShapeNode* cur;
 
 };
 
