@@ -1,5 +1,9 @@
 #include "cinder/app/AppBasic.h"
 #include "cinder/gl/gl.h"
+#include "ShapeNode.h"
+#include "Circle.h"
+#include "Rectangle.h"
+#include "ShapeNode.h";
 
 using namespace ci;
 using namespace ci::app;
@@ -11,10 +15,35 @@ class HW2App : public AppBasic {
 	void mouseDown( MouseEvent event );	
 	void update();
 	void draw();
+	void drawNode();
+	void prepareSettings(Settings* settings);
+
+	Surface* mySurface_;
+	static const int appWidth = 800; 
+	static const int appHeight = 600;
+	ShapeNode *sentinel;
+
 };
+
+void HW2App::prepareSettings(Settings* settings)
+{
+	settings->setWindowSize(appWidth, appHeight);
+	settings->setResizable(false);
+	settings->setFrameRate(60.0f);
+}
+
+void HW2App::drawNode() {
+	ShapeNode *cur = sentinel->getNext();
+	do {
+		cur->getData()->draw();
+		cur = cur->getNext();
+	} while(cur != sentinel);
+
+}
 
 void HW2App::setup()
 {
+	*mySurface_ = new Surface(appWidth, appHeight);
 }
 
 void HW2App::mouseDown( MouseEvent event )
@@ -29,6 +58,9 @@ void HW2App::draw()
 {
 	// clear out the window with black
 	gl::clear( Color( 0, 0, 0 ) ); 
+	gl::draw(*mySurface_);
+
+	ShapeNode* cur = cur->next_;
 }
 
 CINDER_APP_BASIC( HW2App, RendererGl )
