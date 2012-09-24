@@ -18,19 +18,7 @@
     <ClCompile Include="..\src\HW2App.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GUI.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Shapes.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Circle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="MyRectangle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ShapeNode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -38,19 +26,7 @@
     <ClInclude Include="..\include\Resources.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GUI.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Circle.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MyRectangle.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Shapes.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ShapeNode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

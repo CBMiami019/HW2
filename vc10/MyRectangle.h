@@ -1,22 +1,26 @@
-#pragma once
-#include "cinder\gl\gl.h"
-#include "Shapes.h"
-
-using namespace ci;
-
-class MyRectangle
-{
+class MyRectangle{
 public:
-	MyRectangle(float x1, float y1, float x2, float y2, Color8u color);
-	void update();
-	void draw();
-	bool isInside(Vec2i mouse_pos);
+	MyRectangle(int depth, ci::Vec2f position, ci::Vec2f offset, float radius);
 
-	MyRectangle(void);
-	~MyRectangle(void);
+	//Pointers to my siblings
+	MyRectangle* next_;
+	MyRectangle* prev_;
 
-private:
-	float x1_, y1_, x2_, y2_;
-	Color8u color_;
+	//Pointer to the sentinel for my list of children.
+	MyRectangle* children_;
+
+	ci::Vec2f offset_; //From parent position
+	ci::Vec2f position_; //position_ == parent's position + offset_
+	float radius_;
+
+	ci::Vec2f velocity_;
+
+	//Return true of the (x,y) provided is inside the diamond
+	bool isInside(float x, float y);
+	void draw(ci::Vec2i mouse_pos);
+	void update(ci::Vec2f parent_position, float parent_r);
+
+	void addRandomChild(int depth);
 };
 
+void insertAfter(MyRectangle* new_item, MyRectangle* insert_here);

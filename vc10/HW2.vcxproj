@@ -105,19 +105,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\src\HW2App.cpp" />
-    <ClCompile Include="Circle.cpp" />
-    <ClCompile Include="GUI.cpp" />
     <ClCompile Include="MyRectangle.cpp" />
-    <ClCompile Include="ShapeNode.cpp" />
-    <ClCompile Include="Shapes.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Resources.h" />
-    <ClInclude Include="Circle.h" />
-    <ClInclude Include="GUI.h" />
     <ClInclude Include="MyRectangle.h" />
-    <ClInclude Include="ShapeNode.h" />
-    <ClInclude Include="Shapes.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resources.rc" />
