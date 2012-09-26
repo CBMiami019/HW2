@@ -5,6 +5,8 @@
 #include "cinder/ImageIo.h"
 #include "Resources.h"
 
+//Carter Beil doing the code review on this code
+
 
 using namespace ci;
 using namespace ci::app;
@@ -47,6 +49,11 @@ private:
 const Vec2f HW2App::kUnitX = Vec2f(0.7071f,-0.7071f);
 const Vec2f HW2App::kUnitY = Vec2f(0.7071f,0.7071f);
 
+/*First off, I just want to say that your code is hard to review because you haven't commented any 
+	of your methods. It has taken me a long time just to figure out what your methods do and 
+	how they are related to one another. Consider in the future adding more comments so that anyone
+	who is reviewing your code knows what is going on.
+*/
 
 
 void HW2App::prepareSettings(Settings* settings)
@@ -80,16 +87,35 @@ void HW2App::setup()
 	drawImage = false;
 }
 
+/* 
+	I ran a CRTL+F and searched for "Clicked" to find all the times that mouseClicked is used, and I
+	am still unable to figure out why you have this method in here.
+
+	To my knowledge, mouseDown simply changed the bool value from false to true and serves
+	no other purpose in this program
+*/
 void HW2App::mouseDown( MouseEvent event )
 {
 	mouseClicked = true;
 }
+
+/*
+	Same thing with this mouseUp method -- I see the variable mouseClicked in your code, but I do not 
+	know why it is here.
+
+	It is used neither in HW2APP.cpp or MyRectangle.cpp more than these two methods.
+*/
 
 void HW2App::mouseUp( MouseEvent event )
 {
 	mouseClicked = false;
 }
 
+
+/*
+	Also having the same problem with mMouseVel and mMouseLoc. I can see that you're changing the value
+	of each of them, but you don't use them at all.
+*/
 void HW2App::mouseMove( MouseEvent event )
 {
 	mMouseVel = ( event.getPos() - mMouseLoc );
@@ -126,6 +152,13 @@ void HW2App::update()
 void HW2App::draw()
 {
 	// clear out the window with black
+
+	/*
+		All I'm seeing when I run your program is the black of your gl:clear(Color(0,0,0),true); and 
+		even when I clear that out, the screen is still just black. I don't know why your program
+		isn't working on my computer.
+	*/
+
 	gl::clear( Color( 0, 0, 0 ), true ); 
 
 	MyRectangle* cur = mRect_;

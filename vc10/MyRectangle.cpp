@@ -5,6 +5,9 @@
 #include "cinder/Rand.h"
 
 
+//Carter Beil doing the code review on this code
+
+
 using namespace ci;
 using namespace ci::app;
 using namespace std;
@@ -61,6 +64,13 @@ void MyRectangle::addRandomChild(int depth){
 	}
 }
 
+
+/*
+	As I run your program, all I get is a black screen. I have tried modifying your
+	appWidth and appHeight as well as texture size, but nothing seems to fix the problem
+	so I'll try to just fix the code as I see it in writing
+*/
+
 void MyRectangle::draw(Vec2i mp) {
 
 	/*bool is_inside = isInside(mp.x, mp.y);
@@ -84,6 +94,5 @@ void MyRectangle::draw(Vec2i mp) {
 		}while( cur->next_ != children_ );
 	}
 }
-
 
 
